@@ -1,15 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
-import { ContactListScreen } from './screens/ContactListScreen';
+// import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import React  from 'react';
+import { StyleSheet, View } from 'react-native';
+// import { ContactListScreen } from './screens/ContactListScreen';
+import { RootStack } from './navigation/PrimaryStackNavigator';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      {/* <Text>Open up App.js to start working on your app!</Text> */}
-      <ContactListScreen />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 }
 
