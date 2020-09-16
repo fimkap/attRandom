@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
+import {Row} from '../components/Row';
+import { API_URL, ON_END_REACHED_THRESHOLD } from '../constants/Constants';
 
-const Row = props => (
-  <TouchableOpacity style={styles.row} onPress={() => props.onSelectContact(props)}>
-    <Text style={styles.item}>{props.name.first} {props.name.last}</Text>
-  </TouchableOpacity>
-)
-
-
+/**
+ * Fetches randomized contacts.
+ * Display the contacts in a list with the update on scroll.
+ *
+ * @param navigation
+ */
 const ContactListScreen = ({navigation}) => {
   const [data, setData] = useState([])
   const [lastPage, setLastPage] = useState(1)
@@ -16,18 +17,30 @@ const ContactListScreen = ({navigation}) => {
     setLastPage(lastPage+1);
   }
 
+  /**
+   * Navigates to a contact details screen
+   *  when a specific contact has been selected.
+   *
+   * @param contact Selected contact information
+   */
   const handleSelectContact = contact => {
     navigation.push('Details', contact);
   }
 
+  /**
+   * Fetches the next batch of contacts initially and
+   *  when scrolling toward the end of the list.
+   *
+   * @param contact Selected contact information
+   */
   useEffect(() => {
     async function fetchContacts() {
       try {
-        const response = await fetch('https://randomuser.me/api/?results=10');
-        const results = await response.json();
-        setData(data.concat(results.results));
+        const response = await fetch(API_URL);
+        const jsonResponse = await response.json();
+        setData(data.concat(jsonResponse.results));
       } catch(error) {
-        console.error(error);
+        throw new Error('Network request failed');
       }
     }
     fetchContacts();
@@ -39,16 +52,12 @@ const ContactListScreen = ({navigation}) => {
         data={data}
         keyExtractor={(item) => item.id.value}
         onEndReached={incrementPageCount}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={ON_END_REACHED_THRESHOLD}
         renderItem={({item}) => <Row {...item} onSelectContact={handleSelectContact} />}
       />
     </View>
   );
 }
-
-ContactListScreen['navigationOptions'] = screenProps => ({
-    title: 'Contacts'
-})
 
 export {ContactListScreen};
 
@@ -57,13 +66,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-  row: {
-    padding: 20
   },
 });

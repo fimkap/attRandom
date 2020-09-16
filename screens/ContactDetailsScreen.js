@@ -3,6 +3,11 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 
 const placeHolderPicture = require('../assets/splash.png');
 
+/**
+ * Display the contact details.
+ *
+ * @param route An object to provide the contact details
+ */
 const ContactDetailsScreen = ({route}) => {
   const name = route.params?.name ?? '';
   const phone = route.params?.phone ?? '';
@@ -22,10 +27,6 @@ const ContactDetailsScreen = ({route}) => {
       </View>
     )
 }
-
-// ContactDetailsScreen['navigationOptions'] = screenProps => ({
-//     title: screenProps.name.first 
-// })
 
 export {ContactDetailsScreen};
 

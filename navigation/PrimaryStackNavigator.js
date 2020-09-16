@@ -5,6 +5,11 @@ import { ContactDetailsScreen } from '../screens/ContactDetailsScreen';
 
 const Stack = createStackNavigator();
 
+/**
+ * Implements a primary (root) navigation stack.
+ *
+ *  @return Stack.Navigator
+ */
 function RootStack() {
   return (
     <Stack.Navigator
