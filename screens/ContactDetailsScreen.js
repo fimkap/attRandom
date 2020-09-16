@@ -23,9 +23,9 @@ const ContactDetailsScreen = ({route}) => {
     )
 }
 
-ContactDetailsScreen['navigationOptions'] = screenProps => ({
-    title: 'Details'
-})
+// ContactDetailsScreen['navigationOptions'] = screenProps => ({
+//     title: screenProps.name.first 
+// })
 
 export {ContactDetailsScreen};
 

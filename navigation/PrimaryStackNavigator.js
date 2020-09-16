@@ -14,12 +14,13 @@ function RootStack() {
       <Stack.Screen
         name="Contacts"
         component={ContactListScreen}
-        options={{ title: 'Contacts' }}
+        options={{ title: 'Randomize me!' }}
       />
       <Stack.Screen
         name="Details"
         component={ContactDetailsScreen}
         initialParams={{ user: 'details' }}
+        options={({ route }) => ({ title: route.params.name.first })}
       />
     </Stack.Navigator>
   );
