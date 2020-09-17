@@ -15,7 +15,9 @@ it('renders correctly', () => {
 });
 
 it('renders correctly with no last name', () => {
-  const {getByText} = render(<Row {...itemMockNoLastName} onSelectContact={() => {}} />)
+  const { getByText } = render(
+    <Row {...itemMockNoLastName} onSelectContact={() => {}} />
+  );
 
   const rowText = getByText(/Mitchell/)
   expect(rowText.props.children).toEqual(["Mitchell", " ", ""])

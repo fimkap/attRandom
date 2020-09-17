@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ContactListScreen } from '../screens/ContactListScreen';
 import { ContactDetailsScreen } from '../screens/ContactDetailsScreen';
@@ -19,12 +19,12 @@ function RootStack() {
       <Stack.Screen
         name="Contacts"
         component={ContactListScreen}
-        options={{ title: 'Randomize me!' }}
+        options={{ title: "Randomize me!" }}
       />
       <Stack.Screen
         name="Details"
         component={ContactDetailsScreen}
-        initialParams={{ user: 'details' }}
+        initialParams={{ user: "details" }}
         options={({ route }) => ({ title: route.params.name.first })}
       />
     </Stack.Navigator>
