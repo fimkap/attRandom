@@ -50,7 +50,7 @@ const ContactListScreen = ({navigation}) => {
     <View style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id.value}
+        keyExtractor={(item) => item.phone}
         onEndReached={incrementPageCount}
         onEndReachedThreshold={ON_END_REACHED_THRESHOLD}
         renderItem={({item}) => <Row {...item} onSelectContact={handleSelectContact} />}

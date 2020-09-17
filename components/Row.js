@@ -8,7 +8,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
  */
 const Row = props => (
   <TouchableOpacity style={styles.row} onPress={() => props.onSelectContact(props)}>
-    <Text style={styles.item}>{props.name.first} {props.name.last}</Text>
+    <Text style={styles.item}>{props?.name?.first ?? ''} {props?.name?.last ?? ''}</Text>
   </TouchableOpacity>
 )
 
