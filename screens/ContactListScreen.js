@@ -1,56 +1,54 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, FlatList, Alert } from 'react-native';
-import {Row} from '../components/Row';
-import { API_URL, ON_END_REACHED_THRESHOLD } from '../constants/Constants';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { Row } from '../components/Row';
+import { API_URL } from '../constants/Network';
+import { alertOfErrorWithRetry } from '../AlertOfError';
+
+/** limit the number of results returned */
+const COUNT_OF_RESULTS = 10;
+/** how far from the end of the list to trigger update */
+const ON_END_REACHED_THRESHOLD = 0.5;
 
 /**
  * Fetches randomized contacts.
  * Display the contacts in a list with the update on scroll.
  *
- * @param navigation
+ * @component
  */
 const ContactListScreen = ({navigation}) => {
-  const [data, setData] = useState([])
-  const [lastPage, setLastPage] = useState(1)
+  const [data, setData] = useState([]);
+  const [lastPage, setLastPage] = useState(1);
 
   const incrementPageCount = () => {
-    setLastPage(lastPage+1);
-  }
+    setLastPage(lastPage + 1);
+  };
 
   /**
    * Navigates to a contact details screen
    *  when a specific contact has been selected.
    *
-   * @param contact Selected contact information
+   * @param {Object} contact Selected contact information
    */
-  const handleSelectContact = contact => {
+  const handleSelectContact = (contact) => {
     navigation.push('Details', contact);
-  }
+  };
 
-  /**
-   * Fetches the next batch of contacts initially and
-   *  when scrolling toward the end of the list.
-   *
-   * @param contact Selected contact information
-   */
   useEffect(() => {
+    /**
+     * Fetches the next batch of contacts
+     *
+     *  @return {Promise} Promise
+     */
     async function fetchContacts() {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL + '?results=' + COUNT_OF_RESULTS);
         const jsonResponse = await response.json();
         setData(data.concat(jsonResponse.results));
       } catch (error) {
-        Alert.alert(
-          'Failure',
-          'Failed to fetch contacts: ' + error,
-          [
-            {
-              text: 'Retry',
-              onPress: () => incrementPageCount(),
-            },
-            { text: 'Close', onPress: () => {} },
-          ],
-          { cancelable: false }
+        alertOfErrorWithRetry(
+            'Failed to fetch contacts',
+            error,
+            incrementPageCount,
         );
       }
     }
@@ -70,7 +68,7 @@ const ContactListScreen = ({navigation}) => {
       />
     </View>
   );
-}
+};
 
 export {ContactListScreen};
 

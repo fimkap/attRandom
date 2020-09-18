@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 /**
  * Implements a row element in the list.
  *
- *  @param props contact details
+ *  @param {Object} props contact details
  */
 const Row = (props) => (
   <TouchableOpacity

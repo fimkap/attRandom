@@ -6,7 +6,7 @@ const placeHolderPicture = require('../assets/splash.png');
 /**
  * Display the contact details.
  *
- * @param route An object to provide the contact details
+ * @component
  */
 const ContactDetailsScreen = ({ route }) => {
   const { name, location, email, phone, picture } = route.params;

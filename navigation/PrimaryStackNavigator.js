@@ -8,23 +8,23 @@ const Stack = createStackNavigator();
 /**
  * Implements a primary (root) navigation stack.
  *
- *  @return Stack.Navigator
+ *  @component
  */
 function RootStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Contacts"
+      initialRouteName='Contacts'
       screenOptions={{ gestureEnabled: false }}
     >
       <Stack.Screen
-        name="Contacts"
+        name='Contacts'
         component={ContactListScreen}
-        options={{ title: "Randomize me!" }}
+        options={{ title: 'Randomize me!' }}
       />
       <Stack.Screen
-        name="Details"
+        name='Details'
         component={ContactDetailsScreen}
-        initialParams={{ user: "details" }}
+        initialParams={{ user: 'details' }}
         options={({ route }) => ({ title: route.params.name.first })}
       />
     </Stack.Navigator>
