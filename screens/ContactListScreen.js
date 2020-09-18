@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import {Row} from '../components/Row';
 import { API_URL, ON_END_REACHED_THRESHOLD } from '../constants/Constants';
 
@@ -39,12 +39,23 @@ const ContactListScreen = ({navigation}) => {
         const response = await fetch(API_URL);
         const jsonResponse = await response.json();
         setData(data.concat(jsonResponse.results));
-      } catch(error) {
-        throw new Error('Network request failed');
+      } catch (error) {
+        Alert.alert(
+          'Failure',
+          'Failed to fetch contacts: ' + error,
+          [
+            {
+              text: 'Retry',
+              onPress: () => incrementPageCount(),
+            },
+            { text: 'Close', onPress: () => {} },
+          ],
+          { cancelable: false }
+        );
       }
     }
     fetchContacts();
-  }, [lastPage])
+  }, [lastPage]);
 
   return (
     <View style={styles.container}>
@@ -53,7 +64,9 @@ const ContactListScreen = ({navigation}) => {
         keyExtractor={(item) => item.phone}
         onEndReached={incrementPageCount}
         onEndReachedThreshold={ON_END_REACHED_THRESHOLD}
-        renderItem={({item}) => <Row {...item} onSelectContact={handleSelectContact} />}
+        renderItem={({ item }) => (
+          <Row contact={{...item}} onSelectContact={handleSelectContact} />
+        )}
       />
     </View>
   );

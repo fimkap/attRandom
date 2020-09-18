@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 /**
@@ -6,13 +6,18 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
  *
  *  @param props contact details
  */
-const Row = props => (
-  <TouchableOpacity style={styles.row} onPress={() => props.onSelectContact(props)}>
-    <Text style={styles.item}>{props?.name?.first ?? ''} {props?.name?.last ?? ''}</Text>
+const Row = (props) => (
+  <TouchableOpacity
+    style={styles.row}
+    onPress={() => props.onSelectContact(props.contact)}
+  >
+    <Text style={styles.item}>
+      {props.contact?.name?.first ?? ''} {props.contact?.name?.last ?? ''}
+    </Text>
   </TouchableOpacity>
-)
+);
 
-export {Row};
+export { Row };
 
 const styles = StyleSheet.create({
   item: {
@@ -21,6 +26,6 @@ const styles = StyleSheet.create({
     height: 44,
   },
   row: {
-    padding: 20
+    padding: 20,
   },
 });

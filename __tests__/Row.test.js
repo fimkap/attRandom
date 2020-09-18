@@ -8,7 +8,7 @@ const itemMock = { name: {first: 'Mitchell' ,last: 'Myers'} };
 const itemMockNoLastName = { name: {first: 'Mitchell'} };
 
 it('renders correctly', () => {
-  const {getByText} = render(<Row {...itemMock} onSelectContact={() => {}} />)
+  const {getByText} = render(<Row contact={{...itemMock}} onSelectContact={() => {}} />)
 
   const rowText = getByText(/Mitchell/)
   expect(rowText.props.children).toEqual(["Mitchell", " ", "Myers"])
@@ -16,7 +16,7 @@ it('renders correctly', () => {
 
 it('renders correctly with no last name', () => {
   const { getByText } = render(
-    <Row {...itemMockNoLastName} onSelectContact={() => {}} />
+    <Row contact={{...itemMockNoLastName}} onSelectContact={() => {}} />
   );
 
   const rowText = getByText(/Mitchell/)
